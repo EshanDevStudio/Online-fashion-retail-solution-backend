@@ -1,4 +1,4 @@
-const Product = require("../productModel")
+const Product = require("../models/productModel")
 
 const getAllProducts = (req, res) => {
 
