@@ -18,6 +18,29 @@ const getProductById = (req, res) => {
     .then(response => res.json({response}))
     .catch(error => res.json({error}))
 }
+//add new product
+//assuming product details are passed in the request body
+const addNewProduct = (req, res) => {
+
+    const {id, desc, price, cat, color, code, qty} = req.body
+
+    const product = new Product({
+        id: id,
+        desc: desc,
+        price: price,
+        cat: cat,
+        colorData: [{
+            color: color,
+            code: code,
+            qty: qty
+        }]
+    })
+
+    product.save()
+    .then(response => res.json({response}))
+    .catch(error => res.json({error}))
+}
 
 exports.getAllProducts = getAllProducts
 exports.getProductById = getProductById
+exports.addNewProduct = addNewProduct
