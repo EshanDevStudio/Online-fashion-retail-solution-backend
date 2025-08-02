@@ -40,7 +40,29 @@ const addNewProduct = (req, res) => {
     .then(response => res.json({response}))
     .catch(error => res.json({error}))
 }
+//update product
+const updateProduct = async (req, res) => {
+
+    const {id,color, code, qty} = req.body
+
+    const data = {color: color, code: code, qty: qty}
+
+    const product = await Product.findOne({ id })
+
+    product.colorData.push({
+        color: color,
+        code: code,
+        qty: qty
+    })
+
+    product.save()
+    .then(response => res.json({response}))
+    .catch(error => res.json({error}))
+
+    
+}
 
 exports.getAllProducts = getAllProducts
 exports.getProductById = getProductById
 exports.addNewProduct = addNewProduct
+exports.updateProduct = updateProduct
