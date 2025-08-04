@@ -3,7 +3,6 @@ const router = express.Router()
 const controler = require('../controllers/controler')
 
 
-router.post('/verifylogin', controler.verifyToken)
 
 
 /////////////////////////////////////////////
