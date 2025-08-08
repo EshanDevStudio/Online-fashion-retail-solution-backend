@@ -2,3 +2,7 @@
 node_modules
 
 package-lock.json
+
+
+stockModel.js
+supplierModel.js
