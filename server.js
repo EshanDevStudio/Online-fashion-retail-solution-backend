@@ -2,10 +2,11 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require('mongoose');
+require('dotenv').config()
 
-const port = 3001
-const host = 'localhost'
-const uri = ''
+const port = process.env.PORT;
+const host = process.env.HOST;
+const uri = process.env.MONGODB_URI;
 
 app.use(cors())
 app.use(express.json())
