@@ -81,3 +81,23 @@ router.get('/:clothId', async (req, res) => {
         res.json({ message: err.message });
     }
 });
+
+//get product by id
+router.post('/gtProbyid', (req, res) => {
+    const id = req.body._id
+
+    Inventory.findOne({_id: id})
+    .then(response => res.json({response}))
+    .catch(err => res.json({err}))
+})
+
+//get product by age and gender
+router.post('/getprobyageandgender', (req, res) => {
+    const {ageCategory, gender} = req.body
+
+    Inventory.find({age: ageCategory, gender})
+    .then(response => res.json({response}))
+    .catch(err => res.json({err}))
+})
+
+module.exports = router;
