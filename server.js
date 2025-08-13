@@ -3,6 +3,8 @@ const app = express();
 const cors = require("cors");
 const mongoose = require('mongoose');
 require('dotenv').config()
+// Routes
+const userRouter = require('./UserManagement/routes/userRouter')
 
 const port = process.env.PORT;
 const host = process.env.HOST;
@@ -27,3 +29,7 @@ const server = app.listen(port, host, () => {
   console.log("server is lisining to port: ", server.address().port)
   console.log("host: ", host)
 })
+
+
+
+app.use('/api/user', userRouter)
