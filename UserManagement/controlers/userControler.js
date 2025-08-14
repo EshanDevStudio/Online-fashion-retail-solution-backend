@@ -141,6 +141,15 @@ const login = (req, res) => {
     .catch(err=>res.json({err: "server error"}))
 }
 
+const logout = (req, res) => {
+    const refreshToken = req.body.refreshToken
+
+    Token.findOneAndDelete({refreshToken})
+    .then(resp => res.json({resp}))
+    .catch(error => res.json({error}))
+}
+
 
 exports.register = register
 exports.login = login
+exports.logout = logout
