@@ -141,6 +141,40 @@ const login = (req, res) => {
     .catch(err=>res.json({err: "server error"}))
 }
 
+const logout = (req, res) => {
+    const refreshToken = req.body.refreshToken
+
+    Token.findOneAndDelete({refreshToken})
+    .then(resp => res.json({resp}))
+    .catch(error => res.json({error}))
+}
+
+// generate new access token using refresh token
+const token =(req, res) =>{
+
+    const refreshToken = req.body.refreshToken
+    if(refreshToken == null) return res.sendStatus(401)
+
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN,(err, decoded) => {
+        if(err) return res.sendStatus(403)
+
+        Token.findOne({refreshToken, email: decoded.email})
+        .then(resp => {
+            if(resp == null) return res.sendStatus(401)
+            const token = jwt.sign({email: decoded.email,role: decoded.role}, process.env.ACCESS_TOKEN, {expiresIn: '20s'})
+            res.json({token})
+        })
+        .catch(err => res.sendStatus(500))
+
+    })
+
+}
+
+
+
 
 exports.register = register
 exports.login = login
+exports.logout = logout
+exports.token = token
+
