@@ -100,4 +100,39 @@ router.post('/getprobyageandgender', (req, res) => {
     .catch(err => res.json({err}))
 })
 
+//get product by gender but inverse age cat
+router.post('/getproductbygender', (req, res) => {
+    const {ageCategory, gender} = req.body
+
+    Inventory.find({$and: [{gender: gender}, {age: {$ne:ageCategory}}]})
+    .then(response => res.json({response}))
+    .catch(err => res.json({err}))
+})
+
+//get product by inverse gender but same age cat
+router.post('/getproductbyinvgendersameage', (req, res) => {
+    const {ageCategory, gender} = req.body
+
+    var inverseGender = ''
+    if(gender == 'Male') inverseGender = 'Female'
+    else if(gender == 'Female') inverseGender = 'Male'
+
+    Inventory.find({$and: [{gender: inverseGender}, {age:ageCategory}]})
+    .then(response => res.json({response}))
+    .catch(err => res.json({err}))
+})
+
+//get product by inverse gender but inverse age cat
+router.post('/getproductbyinvgenderinvage', (req, res) => {
+    const {ageCategory, gender} = req.body
+
+    var inverseGender = ''
+    if(gender == 'Male') inverseGender = 'Female'
+    else if(gender == 'Female') inverseGender = 'Male'
+
+    Inventory.find({$and: [{gender: inverseGender}, {age: {$ne:ageCategory}}]})
+    .then(response => res.json({response}))
+    .catch(err => res.json({err}))
+})
+
 module.exports = router;
