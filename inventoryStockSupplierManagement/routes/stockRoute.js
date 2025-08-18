@@ -11,3 +11,18 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
+// Retrieve a specific stock item
+router.get('/:id', async (req, res) => {
+    try {
+        const stockItem = await Stock.findById(req.params.id);
+        if (!stockItem) {
+            return res.status(404).json({ message: 'Stock item not found' });
+        }
+        res.json(stockItem);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+module.exports = router;
