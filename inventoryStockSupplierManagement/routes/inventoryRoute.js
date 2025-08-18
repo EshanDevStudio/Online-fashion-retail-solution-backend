@@ -122,4 +122,17 @@ router.post('/getproductbyinvgendersameage', (req, res) => {
     .catch(err => res.json({err}))
 })
 
+//get product by inverse gender but inverse age cat
+router.post('/getproductbyinvgenderinvage', (req, res) => {
+    const {ageCategory, gender} = req.body
+
+    var inverseGender = ''
+    if(gender == 'Male') inverseGender = 'Female'
+    else if(gender == 'Female') inverseGender = 'Male'
+
+    Inventory.find({$and: [{gender: inverseGender}, {age: {$ne:ageCategory}}]})
+    .then(response => res.json({response}))
+    .catch(err => res.json({err}))
+})
+
 module.exports = router;
