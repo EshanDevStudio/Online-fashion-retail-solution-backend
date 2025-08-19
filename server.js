@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 require('dotenv').config()
 // Routes
 const userRouter = require('./UserManagement/routes/userRouter')
+const inventoryRoute = require('./inventoryStockSupplierManagement/routes/inventoryRoute')
 
 const port = process.env.PORT;
 const host = process.env.HOST;
@@ -31,5 +32,8 @@ const server = app.listen(port, host, () => {
 })
 
 
-
+//user management
 app.use('/api/user', userRouter)
+
+//inventory management
+app.use("/api/inventory", inventoryRoute);
