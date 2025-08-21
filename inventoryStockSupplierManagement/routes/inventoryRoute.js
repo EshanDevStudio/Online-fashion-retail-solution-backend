@@ -171,4 +171,13 @@ router.post('/getproductbyinvagegenderinvcltype', (req, res) => {
     .catch(err => res.json({err}))
 })
 
+//get product by gender
+router.post('/getproductbygender', (req, res) => {
+    const {gender} = req.body
+
+    Inventory.find({gender})
+    .then(response => res.json({response}))
+    .catch(err => res.json({err}))
+})
+
 module.exports = router;
