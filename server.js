@@ -6,6 +6,7 @@ require('dotenv').config()
 // Routes
 const userRouter = require('./UserManagement/routes/userRouter')
 const inventoryRoute = require('./inventoryStockSupplierManagement/routes/inventoryRoute')
+const stockRouter = require('./inventoryStockSupplierManagement/routes/stockRoute')
 
 const port = process.env.PORT;
 const host = process.env.HOST;
@@ -37,3 +38,5 @@ app.use('/api/user', userRouter)
 
 //inventory management
 app.use("/api/inventory", inventoryRoute);
+app.use("/api/stock", stockRouter);
+
