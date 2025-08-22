@@ -35,6 +35,16 @@ router.post('/', async (req, res) => {
     }
 });
 
+// Update a stock item
+router.put('/:id', async (req, res) => {
+    try {
+        const updatedStockItem = await Stock.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json(updatedStockItem);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
 
 
 module.exports = router;
