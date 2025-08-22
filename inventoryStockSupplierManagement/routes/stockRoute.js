@@ -25,6 +25,16 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// Create a new stock item
+router.post('/', async (req, res) => {
+    try {
+        const newStockItem = await Stock.create(req.body);
+        res.status(201).json(newStockItem);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
 
 
 module.exports = router;
