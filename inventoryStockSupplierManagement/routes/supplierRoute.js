@@ -12,4 +12,18 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Retrieve a specific supplier
+router.get('/:id', async (req, res) => {
+    try {
+        const supplier = await Supplier.findOne({_id: req.params.id});
+        if (supplier == null) {
+            return res.status(404).json({ message: 'Supplier not found' });
+        }
+        res.json(supplier);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+
 module.exports = router;
