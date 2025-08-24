@@ -25,5 +25,15 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// Create a new supplier
+router.post('/', async (req, res) => {
+    try {
+        const newSupplier = await Supplier.create(req.body);
+        res.status(201).json(newSupplier);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
 
 module.exports = router;
