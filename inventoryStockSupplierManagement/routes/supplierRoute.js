@@ -35,5 +35,28 @@ router.post('/', async (req, res) => {
     }
 });
 
+// Update a supplier
+router.put('/:id', async (req, res) => {
+    try {
+        const updatedSupplier = await Supplier.findByIdAndUpdate({_id: req.params.id}, req.body, { new: true });
+        res.json(updatedSupplier);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
+// Delete a supplier
+router.delete('/:id', async (req, res) => {
+    try {
+        const deletedSupplier = await Supplier.findByIdAndDelete({_id: req.params.id});
+        if (deletedSupplier == null) {
+            return res.status(404).json({ message: 'Supplier not found' });
+        }
+        res.json({ message: 'Supplier deleted' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 
 module.exports = router;
