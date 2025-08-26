@@ -58,5 +58,14 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+router.get('/', async (req, res) => {
+    try {
+        const suppliers = await Supplier.find({}, 'supplierName clothType'); // Only retrieve supplierName and clothType
+        res.status(200).json(suppliers);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 
 module.exports = router;
