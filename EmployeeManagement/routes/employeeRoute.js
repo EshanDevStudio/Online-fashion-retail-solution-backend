@@ -35,4 +35,45 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Route to update an employee
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Parse salary and otrate from request body as numbers
+    const salary = parseFloat(req.body.salary);
+    const otrate = parseFloat(req.body.otrate);
+
+    // Calculate totalot and totalsalary based on salary and otrate
+    const totalot = salary * otrate/100;
+    const totalsalary = totalot + salary;
+
+    // Update the employee record with the calculated values
+    const updatedEmployee = await Employee.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          email: req.body.email,
+          phone: req.body.phone,
+          salary: salary || 0, // Set default to 0 if salary is not provided
+          otrate: otrate || 0, // Set default to 0 if otrate is not provided
+          totalot: totalot || 0, // Set default to 0 if totalot is not calculated
+          totalsalary: totalsalary || 0, // Set default to 0 if totalsalary is not calculated
+        },
+      },
+      { new: true }
+    );
+
+    if (!updatedEmployee) {
+      return res.status(404).json({ message: 'Employee not found' });
+    }
+
+    res.json(updatedEmployee);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 module.exports = router;
