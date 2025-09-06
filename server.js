@@ -8,6 +8,7 @@ const userRouter = require('./UserManagement/routes/userRouter')
 const inventoryRoute = require('./inventoryStockSupplierManagement/routes/inventoryRoute')
 const stockRouter = require('./inventoryStockSupplierManagement/routes/stockRoute')
 const employeeRouter = require('./EmployeeManagement/routes/employeeRoute');
+const attendanceRouter = require('./EmployeeManagement/routes/attendanceRoute');
 
 
 const port = process.env.PORT;
@@ -44,4 +45,5 @@ app.use("/api/stock", stockRouter);
 
 //Employee management
 app.use("/api/emp", employeeRouter);
+app.use("/api/attendance", attendanceRouter);
 
