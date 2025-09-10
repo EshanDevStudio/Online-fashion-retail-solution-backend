@@ -20,4 +20,29 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Route to get all tasks
+router.get('/', async (req, res) => {
+  try {
+    const tasks = await Task.find().populate('assignedTo', 'firstName lastName email');
+    res.json(tasks);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Route to update a task
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const updatedTask = await Task.findByIdAndUpdate(id, req.body, { new: true });
+    if (!updatedTask) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+    res.json(updatedTask);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 module.exports = router;
