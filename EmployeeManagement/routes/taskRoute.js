@@ -20,4 +20,14 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Route to get all tasks
+router.get('/', async (req, res) => {
+  try {
+    const tasks = await Task.find().populate('assignedTo', 'firstName lastName email');
+    res.json(tasks);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;
