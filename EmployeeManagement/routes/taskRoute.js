@@ -30,4 +30,19 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Route to update a task
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const updatedTask = await Task.findByIdAndUpdate(id, req.body, { new: true });
+    if (!updatedTask) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+    res.json(updatedTask);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 module.exports = router;
