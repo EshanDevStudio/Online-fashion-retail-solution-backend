@@ -60,4 +60,20 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+
+// Route to get task by ID
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const task = await Task.findById(id).populate('assignedTo', 'firstName lastName email');
+    if (!task) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+    res.json(task);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;
