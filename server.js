@@ -10,6 +10,7 @@ const stockRouter = require('./inventoryStockSupplierManagement/routes/stockRout
 const employeeRouter = require('./EmployeeManagement/routes/employeeRoute');
 const attendanceRouter = require('./EmployeeManagement/routes/attendanceRoute');
 const taskRouter = require('./EmployeeManagement/routes/taskRoute');
+const inquiryRouter = require('./inquiryManagement/route/inquiryRouter')
 
 
 const port = process.env.PORT;
@@ -48,5 +49,8 @@ app.use("/api/stock", stockRouter);
 app.use("/api/emp", employeeRouter);
 app.use("/api/attendance", attendanceRouter);
 app.use("/api/tasks", taskRouter);
+
+//inquiry management
+app.use("/api/inquiry", inquiryRouter);
 
 
