@@ -20,4 +20,13 @@ router.post('/add', (req, res) => {
 
 })
 
+//get all inquires by state
+router.post('/getallbystate', (req, res) => {
+    const state = req.body.state
+
+    Inquiry.find({state})
+    .then(response => res.json(response))
+    .catch(err => res.json({err}))
+})
+
 module.exports = router;
