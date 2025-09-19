@@ -29,4 +29,13 @@ router.post('/getallbystate', (req, res) => {
     .catch(err => res.json({err}))
 })
 
+// update inquiry by id
+router.patch('/updateinqbyid', (req, res) => {
+    const  {_id, state} = req.body
+
+    Inquiry.findOneAndUpdate({_id},{state})
+    .then(response => res.json({response}))
+    .catch(error => res.json({error}))
+})
+
 module.exports = router;
